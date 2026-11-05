@@ -78,7 +78,7 @@ body {
   transition: width 0.35s ease;
 }
 
-/* Navigasi Atas Sticky (otomatis sembunyi saat scroll ke bawah, muncul saat scroll ke atas) */
+/* Navigasi Atas Sticky (Selalu tampil di Laptop; hanya auto-hide di HP) */
 .sticky-header {
   position: sticky; top: 10px; z-index: 1500;
   background-color: var(--bg-card);
@@ -87,7 +87,6 @@ body {
   transition: transform 0.3s ease;
   will-change: transform;
 }
-.sticky-header.nav-hidden { transform: translateY(calc(-100% - 12px)); }
 .header-container {
   max-width: 1200px; margin: 0 auto;
   display: flex; flex-direction: column; gap: 12px;
@@ -170,7 +169,7 @@ body {
   display: flex; flex-direction: column; gap: 40px;
 }
 .page-section {
-  scroll-margin-top: 30px; background-color: var(--bg-card);
+  scroll-margin-top: 175px; background-color: var(--bg-card);
   border: var(--border-thick); border-radius: var(--radius-lg); padding: 28px;
 }
 .section-header-strip {
@@ -546,10 +545,12 @@ body {
   padding: 12px 24px; font-weight: 900; z-index: 2500;
   transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
   text-align: center; cursor: pointer;
+  display: none;
 }
 .reward-toast.show {
   transform: translateX(-50%) translateY(0);
   opacity: 1; visibility: visible; pointer-events: auto;
+  display: inline-block;
 }
 
 .site-footer { max-width: 1200px; margin: 40px auto 0; padding: 0 16px; }
@@ -559,7 +560,17 @@ body {
   padding: 28px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
 }
 
-/* Responsif untuk HP & Tablet */
+/* Auto-hide Navbar & Scroll Margin Khusus Layar HP (<= 768px) */
+@media (max-width: 768px) {
+  .sticky-header.nav-hidden {
+    transform: translateY(calc(-100% - 12px));
+  }
+  .page-section {
+    scroll-margin-top: 24px;
+  }
+}
+
+/* Responsif untuk Tablet & HP */
 @media (max-width: 960px) {
   .hero-grid, .tips-checklist-grid { grid-template-columns: 1fr; }
   .map-nodes-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }

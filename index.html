@@ -6,13 +6,18 @@
   <title>Ruang Kelas Digital Kelas 2 SD - Bu Aulia Nur Khasanah</title>
   <meta name="description" content="Portofolio Pembelajaran Interaktif Kelas 2 SD - IPA: Mesin Sempurna Bernama Tubuh Manusia (Panduan Visual Pancaindra: Cara Kita Memahami Dunia) bersama Bu Aulia Nur Khasanah." />
 
+  <!-- Anti-cache meta headers agar update selalu terbaca di laptop & HP -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
   <!-- Google Fonts: Nunito (Besar, bulat, dan ramah untuk anak Kelas 2 SD) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
-  <!-- File CSS Terpisah -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- File CSS Terpisah (dengan versioning agar langsung memuat versi terbaru) -->
+  <link rel="stylesheet" href="style.css?v=2.2" />
 </head>
 <body>
 
@@ -21,7 +26,7 @@
     <div class="top-progress-bar" id="topProgressBar"></div>
   </div>
   <div class="confetti-layer" id="confettiLayer" aria-hidden="true"></div>
-  <div class="reward-toast" id="rewardToast" role="status" aria-live="polite" onclick="hideRewardToast()"></div>
+  <div class="reward-toast" id="rewardToast" role="status" aria-live="polite" onclick="hideRewardToast()" style="display: none;"></div>
 
   <!-- NAVIGASI ATAS STICKY -->
   <header class="sticky-header">
@@ -529,7 +534,7 @@
 
   <!-- MASKOT KELAS INTERAKTIF DI POJOK LAYAR -->
   <aside class="mascot-widget" aria-label="Maskot Kelas Si Bubi">
-    <div class="mascot-bubble" id="mascotBubble">
+    <div class="mascot-bubble" id="mascotBubble" style="display: none;">
       <div id="mascotMessageText">
         🦉 <strong>Si Bubi:</strong> "Halo teman Kelas 2! Klik aku kapan saja untuk mendapat tips rahasia tentang Pancaindra ya!"
       </div>
@@ -561,8 +566,8 @@
     </div>
   </footer>
 
-  <!-- File Data & JavaScript Terpisah -->
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+  <!-- File Data & JavaScript Terpisah (dengan versioning agar langsung memuat versi terbaru) -->
+  <script src="data.js?v=2.2"></script>
+  <script src="script.js?v=2.2"></script>
 </body>
 </html>

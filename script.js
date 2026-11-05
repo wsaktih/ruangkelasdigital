@@ -212,6 +212,7 @@ function hideRewardToast() {
   const toast = document.getElementById('rewardToast');
   if (!toast) return;
   toast.classList.remove('show');
+  toast.style.display = 'none';
   clearTimeout(toastTimer);
 }
 
@@ -219,11 +220,13 @@ function showRewardToast(message) {
   const toast = document.getElementById('rewardToast');
   if (!toast) return;
   toast.textContent = message;
+  toast.style.display = 'inline-block';
+  void toast.offsetWidth;
   toast.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2400);
+    hideRewardToast();
+  }, 2600);
 }
 
 /* ==========================================================================
@@ -253,19 +256,22 @@ function navigateToSection(sectionId) {
   visitSection(sectionId);
   const target = document.getElementById(sectionId);
   if (target) {
-    // Sembunyikan navbar agar tidak menutupi judul Pos yang dituju
+    // Sembunyikan navbar hanya jika di layar HP
     hideNavbarTemporarily();
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
 /* ==========================================================================
-   NAVBAR OTOMATIS SEMBUNYI SAAT SCROLL KE BAWAH (HEMAT LAYAR HP)
+   NAVBAR OTOMATIS SEMBUNYI HANYA DI HP (LEBAR <= 768px) UNTUK HEMAT LAYAR
+   Di Laptop / Desktop (> 768px), navbar selalu tetap ada / sticky
    ========================================================================== */
 let lastScrollY = 0;
 let navLockUntil = 0;
 
 function hideNavbarTemporarily() {
+  // Hanya berlaku di HP
+  if (window.innerWidth > 768) return;
   const header = document.querySelector('.sticky-header');
   if (!header) return;
   header.classList.add('nav-hidden');
@@ -278,6 +284,15 @@ function initAutoHideNavbar() {
   let ticking = false;
 
   window.addEventListener('scroll', () => {
+    // Pada laptop / layar lebar (> 768px): navbar selalu terlihat (tidak auto-hide)
+    if (window.innerWidth > 768) {
+      if (header.classList.contains('nav-hidden')) {
+        header.classList.remove('nav-hidden');
+      }
+      return;
+    }
+
+    // Khusus HP (<= 768px): sembunyi saat scroll turun, tampil saat scroll naik
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
@@ -285,18 +300,23 @@ function initAutoHideNavbar() {
       const diff = y - lastScrollY;
 
       if (y < 80) {
-        // Di bagian paling atas halaman: navbar selalu tampil
         header.classList.remove('nav-hidden');
         lastScrollY = y;
       } else if (Math.abs(diff) > 8) {
         if (Date.now() > navLockUntil) {
-          header.classList.toggle('nav-hidden', diff > 0); // turun = sembunyi, naik = tampil
+          header.classList.toggle('nav-hidden', diff > 0);
         }
         lastScrollY = y;
       }
       ticking = false;
     });
   }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      header.classList.remove('nav-hidden');
+    }
+  });
 }
 
 function visitSection(sectionId) {
@@ -542,11 +562,27 @@ function speakText(text, btnEl) {
   synth.speak(utterance);
 }
 
+function hideMascotBubble() {
+  const bubble = document.getElementById('mascotBubble');
+  if (bubble) {
+    bubble.classList.remove('open');
+    bubble.style.display = 'none';
+  }
+  clearTimeout(mascotTimer);
+}
+
+function showMascotBubble() {
+  const bubble = document.getElementById('mascotBubble');
+  if (!bubble) return;
+  bubble.classList.add('open');
+  bubble.style.display = 'flex';
+  resetMascotAutoHide();
+}
+
 function resetMascotAutoHide() {
   clearTimeout(mascotTimer);
   mascotTimer = setTimeout(() => {
-    const bubble = document.getElementById('mascotBubble');
-    if (bubble) bubble.classList.remove('open');
+    hideMascotBubble();
   }, 6000);
 }
 
@@ -555,12 +591,11 @@ function toggleMascotBubble() {
   const bubble = document.getElementById('mascotBubble');
   if (!bubble) return;
 
-  if (bubble.classList.contains('open')) {
-    bubble.classList.remove('open');
-    clearTimeout(mascotTimer);
+  const isVisible = bubble.classList.contains('open') || bubble.style.display === 'flex';
+  if (isVisible) {
+    hideMascotBubble();
   } else {
-    bubble.classList.add('open');
-    resetMascotAutoHide();
+    showMascotBubble();
   }
 }
 
@@ -606,6 +641,9 @@ function resetAllProgress() {
   saveState();
   resetMiniQuiz();
 
+  // Tutup balon maskot jika terbuka
+  hideMascotBubble();
+
   // Setel navigasi aktif dan pesan maskot kembali ke Pos 1 (Beranda)
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.nav === 'beranda');
@@ -618,12 +656,28 @@ function resetAllProgress() {
   updateUI();
   showRewardToast('🔄 Progress belajar direset! Kembali ke Pos 1 Beranda.');
 
-  // Kembali ke atas (Pos 1: Beranda)
+  // Scroll kembali ke atas (Pos 1: Beranda)
+  const berandaEl = document.getElementById('beranda');
+  if (berandaEl) {
+    berandaEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  // Pantau hingga posisi scroll tiba di puncak (< 40px) sebelum menghidupkan kembali IntersectionObserver
+  const arrivalCheck = setInterval(() => {
+    if (window.scrollY <= 40) {
+      clearInterval(arrivalCheck);
+      setTimeout(() => {
+        isResettingScroll = false;
+      }, 400);
+    }
+  }, 80);
+
+  // Batas keamanan maksimal 2.5 detik
   setTimeout(() => {
+    clearInterval(arrivalCheck);
     isResettingScroll = false;
-  }, 1000);
+  }, 2500);
 }
 
 function initScrollObserver() {
@@ -648,12 +702,15 @@ window.addEventListener('DOMContentLoaded', () => {
   initScrollObserver();
   initAutoHideNavbar();
 
+  // Tutup balon maskot jika klik di luar area maskot
   document.addEventListener('click', (e) => {
     const widget = document.querySelector('.mascot-widget');
     const bubble = document.getElementById('mascotBubble');
-    if (widget && bubble && bubble.classList.contains('open') && !widget.contains(e.target)) {
-      bubble.classList.remove('open');
-      clearTimeout(mascotTimer);
+    if (widget && bubble) {
+      const isVisible = bubble.classList.contains('open') || bubble.style.display === 'flex';
+      if (isVisible && !widget.contains(e.target)) {
+        hideMascotBubble();
+      }
     }
   });
 });
