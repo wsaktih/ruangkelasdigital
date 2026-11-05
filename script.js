@@ -2,7 +2,7 @@
    LOGIKA INTERAKTIF RUANG KELAS DIGITAL (MENGGUNAKAN DATA DARI data.js)
    ========================================================================== */
 const STORAGE_KEY = 'ruang_kelas_bu_aulia_v1';
-const ALL_SECTIONS = ['beranda', 'mapel', 'modul', 'galeri', 'asesmen'];
+const ALL_SECTIONS = ['beranda', 'mapel', 'modul', 'presentasi', 'video', 'classroom', 'asesmen'];
 
 let appState = {
   visitedSections: ['beranda'],
@@ -243,6 +243,13 @@ function loadState() {
         badges: { ...appState.badges, ...(parsed.badges || {}) },
         checklist: { ...appState.checklist, ...(parsed.checklist || {}) }
       };
+      // Selaraskan dengan 7 Pos baru (buang ID lama yang sudah tidak ada seperti 'galeri')
+      if (Array.isArray(appState.visitedSections)) {
+        appState.visitedSections = appState.visitedSections.filter(s => ALL_SECTIONS.includes(s));
+        if (!appState.visitedSections.includes('beranda')) {
+          appState.visitedSections.unshift('beranda');
+        }
+      }
     }
   } catch (e) {}
 }
@@ -335,7 +342,7 @@ function visitSection(sectionId) {
     appState.visitedSections.push(sectionId);
     playSuccessChime();
     launchFlatConfetti();
-    showRewardToast(`⭐ Hebat! Kamu membuka Pos baru (${appState.visitedSections.length}/5 Bintang)!`);
+    showRewardToast(`⭐ Hebat! Kamu membuka Pos baru (${appState.visitedSections.length}/${ALL_SECTIONS.length} Bintang)!`);
 
     if (appState.visitedSections.length >= ALL_SECTIONS.length && !appState.badges.explorer) {
       appState.badges.explorer = true;
@@ -372,9 +379,9 @@ function updateUI() {
   const starCountText = document.getElementById('starCountText');
   if (starCountText) starCountText.textContent = `${starsCount} / ${ALL_SECTIONS.length}`;
 
-  const progressPct = Math.min(100, Math.round(((starsCount + checkDoneCount + badgeDoneCount) / 11) * 100));
+  const progressPct = Math.min(100, Math.round(((starsCount + checkDoneCount + badgeDoneCount) / 13) * 100));
   const topBar = document.getElementById('topProgressBar');
-  if (topBar) topBar.style.width = `${Math.max(15, progressPct)}%`;
+  if (topBar) topBar.style.width = `${Math.max(12, progressPct)}%`;
 
   document.querySelectorAll('.nav-btn').forEach(btn => {
     btn.classList.toggle('visited', appState.visitedSections.includes(btn.dataset.nav));
@@ -418,7 +425,7 @@ function updateUI() {
 
   const gameStar = document.getElementById('gameCardStarDisplay');
   const gameBadge = document.getElementById('gameCardBadgeDisplay');
-  if (gameStar) gameStar.textContent = `⭐ ${starsCount} / 5`;
+  if (gameStar) gameStar.textContent = `⭐ ${starsCount} / ${ALL_SECTIONS.length}`;
   if (gameBadge) gameBadge.textContent = `🏅 ${badgeDoneCount} / 2`;
 
   document.documentElement.setAttribute('data-theme', appState.theme);
@@ -608,11 +615,21 @@ function nextRandomMascotTip() {
   resetMascotAutoHide();
 }
 
+const ACCENT_LABELS = {
+  blue:   'Biru Ceria 🌊',
+  green:  'Hijau Alam 🍃',
+  orange: 'Oranye Hangat 🍊',
+  pink:   'Pink Manis 🌸',
+  yellow: 'Kuning Mentari ☀️'
+};
+
 function setAccentColor(colorName) {
   playClickSound();
   appState.accent = colorName;
   saveState();
   updateUI();
+  const label = ACCENT_LABELS[colorName] || colorName;
+  showRewardToast(`🎨 Tema Kelas diganti ke: ${label}!`);
 }
 
 function toggleDarkMode() {

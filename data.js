@@ -23,13 +23,15 @@ const CLASS_DATA = {
     waygroundQuiz: 'https://wayground.com/join?gc=24229731'
   },
 
-  // 5 Pos Peta Petualangan di Beranda
+  // 7 Pos Peta Petualangan di Beranda
   adventureMap: [
-    { id: 'beranda', num: 1, title: 'Pos 1: Beranda', desc: 'Sapaan Bu Aulia & Peta Kelas' },
-    { id: 'mapel',   num: 2, title: 'Pos 2: Info Mapel', desc: 'Pancaindra, Kartu Flip & Kuis Kilat' },
-    { id: 'modul',   num: 3, title: 'Pos 3: Modul Ajar', desc: 'Rencana Belajar & NotebookLM' },
-    { id: 'galeri',  num: 4, title: 'Pos 4: Galeri Media', desc: 'PPT, Canva, Video & Classroom' },
-    { id: 'asesmen', num: 5, title: 'Pos 5: Asesmen', desc: 'Game Wayground & Lencana' }
+    { id: 'beranda',    num: 1, title: 'Pos 1: Beranda', desc: 'Sapaan Bu Aulia & Peta Kelas' },
+    { id: 'mapel',      num: 2, title: 'Pos 2: Info Mapel', desc: 'Pancaindra, Kartu Flip & Kuis Kilat' },
+    { id: 'modul',      num: 3, title: 'Pos 3: Modul Ajar', desc: 'Rencana Belajar & NotebookLM' },
+    { id: 'presentasi', num: 4, title: 'Pos 4: PPT & LKPD', desc: 'Slide Interaktif & Canva' },
+    { id: 'video',      num: 5, title: 'Pos 5: Video & Poster', desc: 'Video YouTube & Infografis' },
+    { id: 'classroom',  num: 6, title: 'Pos 6: Kelas & Baca', desc: 'Google Classroom & Pojok Baca' },
+    { id: 'asesmen',    num: 7, title: 'Pos 7: Asesmen Game', desc: 'Kuis Wayground & Lencana' }
   ],
 
   // 5 Kartu Visual Pancaindra
@@ -194,13 +196,15 @@ const CLASS_DATA = {
     }
   ],
 
-  // Sapaan Maskot berbeda untuk tiap halaman
+  // Sapaan Maskot berbeda untuk tiap halaman (7 Pos)
   mascotGreetings: {
-    beranda: '🦉 Si Bubi: "Selamat datang di Beranda Kelas 2 Bu Aulia! Yuk klik 5 Pos di Peta Petualangan agar bintangmu penuh!"',
-    mapel:   '🦉 Si Bubi: "Di Pos 2 ini kita mengenal 5 Pancaindra! Jangan lupa balik Kartu Flip dan jawab 3 soal Mini Kuis ya!"',
-    modul:   '🦉 Si Bubi: "Ini adalah Modul Ajar Bu Aulia yang dibuat dengan NotebookLM. Klik tiap baris untuk membaca isinya!"',
-    galeri:  '🦉 Si Bubi: "Wah, seru sekali! Ada PPT Interaktif, Video YouTube, LKPD Canva, dan Google Classroom Kelas 2!"',
-    asesmen: '🦉 Si Bubi: "Saatnya jadi juara! Klik tombol Mulai Kuis Wayground untuk meraih lencana Juara Kuis! 🏆"'
+    beranda:    '🦉 Si Bubi: "Selamat datang di Beranda Kelas 2 Bu Aulia! Yuk klik 7 Pos di Peta Petualangan agar bintangmu penuh!"',
+    mapel:      '🦉 Si Bubi: "Di Pos 2 ini kita mengenal 5 Pancaindra! Jangan lupa balik Kartu Flip dan jawab 3 soal Mini Kuis ya!"',
+    modul:      '🦉 Si Bubi: "Ini adalah Modul Ajar Bu Aulia yang dibuat dengan NotebookLM. Klik tiap baris untuk membaca isinya!"',
+    presentasi: '🦉 Si Bubi: "Wah, di Pos 4 ada PPT Interaktif dan Lembar Kerja Digital Canva yang seru untuk belajar!"',
+    video:      '🦉 Si Bubi: "Yuk tonton video seru tentang cara kerja 5 indra dan amati poster visual warna-warninya di Pos 5!"',
+    classroom:  '🦉 Si Bubi: "Selamat datang di Pos 6! Di sini ada Google Classroom kelas kita dan pojok baca sains!"',
+    asesmen:    '🦉 Si Bubi: "Saatnya jadi juara di Pos 7! Klik tombol Mulai Kuis Wayground untuk meraih lencana Juara Kuis! 🏆"'
   },
 
   // Tips belajar acak saat maskot diklik
@@ -210,7 +214,7 @@ const CLASS_DATA = {
     '🦉 Tips Bubi #3: Saat flu, tutup hidung dan mulut ketika bersin, lalu cuci tangan dengan sabun hingga bersih! 👃🧼',
     '🦉 Tips Bubi #4: Ketika menyikat gigi pagi dan malam, sikat juga permukaan lidah secara lembut agar tetap bersih! 👅✨',
     '🦉 Tips Bubi #5: Mandi dua kali sehari dan minum air putih yang cukup membuat kulit kita segar dan sehat! ✋💧',
-    '🦉 Tips Bubi #6: Kumpulkan kelima bintang dengan mengunjungi Pos 1 sampai Pos 5 untuk membuka lencana Penjelajah Hebat! ⭐'
+    '🦉 Tips Bubi #6: Kumpulkan ketujuh bintang dengan mengunjungi Pos 1 sampai Pos 7 untuk membuka lencana Penjelajah Hebat! ⭐'
   ]
 };
 

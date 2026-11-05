@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&display=swap" rel="stylesheet" />
 
   <!-- File CSS Terpisah (dengan versioning agar langsung memuat versi terbaru) -->
-  <link rel="stylesheet" href="style.css?v=2.2" />
+  <link rel="stylesheet" href="style.css?v=3.1" />
 </head>
 <body>
 
@@ -50,17 +50,18 @@
 
         <!-- PENGHITUNG BINTANG, TEMA WARNA, MODE GELAP, & TOMBOL SUARA -->
         <div class="utility-bar">
-          <div class="star-counter-pill" title="Kumpulkan 5 bintang dengan membuka semua bagian!">
+          <div class="star-counter-pill" title="Kumpulkan 7 bintang dengan membuka semua bagian!">
             <span>⭐ Bintang:</span>
-            <span id="starCountText">1 / 5</span>
+            <span id="starCountText">1 / 7</span>
           </div>
 
-          <div class="color-picker-group" aria-label="Pilih Tema Warna">
-            <button type="button" class="color-dot active" style="background:#3B82F6" onclick="setAccentColor('blue')" title="Tema Biru" aria-label="Tema Biru"></button>
-            <button type="button" class="color-dot" style="background:#22C55E" onclick="setAccentColor('green')" title="Tema Hijau" aria-label="Tema Hijau"></button>
-            <button type="button" class="color-dot" style="background:#FB923C" onclick="setAccentColor('orange')" title="Tema Oranye" aria-label="Tema Oranye"></button>
-            <button type="button" class="color-dot" style="background:#F472B6" onclick="setAccentColor('pink')" title="Tema Pink" aria-label="Tema Pink"></button>
-            <button type="button" class="color-dot" style="background:#FACC15" onclick="setAccentColor('yellow')" title="Tema Kuning" aria-label="Tema Kuning"></button>
+          <div class="color-picker-group" aria-label="Pilih Tema Warna Kelas" title="Klik lingkaran warna untuk mengganti tema suasana kelas!">
+            <span class="color-picker-label">🎨 Tema:</span>
+            <button type="button" class="color-dot active" style="background:#3B82F6" onclick="setAccentColor('blue')" title="Tema Biru Ceria" aria-label="Tema Biru"></button>
+            <button type="button" class="color-dot" style="background:#22C55E" onclick="setAccentColor('green')" title="Tema Hijau Alam" aria-label="Tema Hijau"></button>
+            <button type="button" class="color-dot" style="background:#FB923C" onclick="setAccentColor('orange')" title="Tema Oranye Hangat" aria-label="Tema Oranye"></button>
+            <button type="button" class="color-dot" style="background:#F472B6" onclick="setAccentColor('pink')" title="Tema Pink Manis" aria-label="Tema Pink"></button>
+            <button type="button" class="color-dot" style="background:#FACC15" onclick="setAccentColor('yellow')" title="Tema Kuning Mentari" aria-label="Tema Kuning"></button>
           </div>
 
           <button type="button" class="icon-btn" id="themeToggleBtn" onclick="toggleDarkMode()" title="Ganti Mode Terang/Gelap">
@@ -75,7 +76,7 @@
         </div>
       </div>
 
-      <!-- 5 TOMBOL MENU BESAR -->
+      <!-- 7 TOMBOL MENU BESAR (7 POS BELAJAR) -->
       <nav class="main-nav" aria-label="Menu Utama Ruang Kelas">
         <button type="button" class="nav-btn active" data-nav="beranda" onclick="navigateToSection('beranda')">
           <span>🏠 1. Beranda</span> <span class="nav-check">✓</span>
@@ -86,11 +87,17 @@
         <button type="button" class="nav-btn" data-nav="modul" onclick="navigateToSection('modul')">
           <span>📘 3. Modul Ajar</span> <span class="nav-check">✓</span>
         </button>
-        <button type="button" class="nav-btn" data-nav="galeri" onclick="navigateToSection('galeri')">
-          <span>🎬 4. Galeri Media</span> <span class="nav-check">✓</span>
+        <button type="button" class="nav-btn" data-nav="presentasi" onclick="navigateToSection('presentasi')">
+          <span>📊 4. PPT & LKPD</span> <span class="nav-check">✓</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav="video" onclick="navigateToSection('video')">
+          <span>🎬 5. Video & Poster</span> <span class="nav-check">✓</span>
+        </button>
+        <button type="button" class="nav-btn" data-nav="classroom" onclick="navigateToSection('classroom')">
+          <span>🏫 6. Kelas & Baca</span> <span class="nav-check">✓</span>
         </button>
         <button type="button" class="nav-btn" data-nav="asesmen" onclick="navigateToSection('asesmen')">
-          <span>🏆 5. Asesmen</span> <span class="nav-check">✓</span>
+          <span>🏆 7. Asesmen</span> <span class="nav-check">✓</span>
         </button>
       </nav>
     </div>
@@ -169,18 +176,20 @@
       <div class="board-game-map">
         <div class="map-header">
           <div>
-            <h3 style="font-size:1.35rem; font-weight:900;">🎲 Peta Petualangan Belajar (5 Pos)</h3>
+            <h3 style="font-size:1.35rem; font-weight:900;">🎲 Peta Petualangan Belajar (7 Pos)</h3>
             <p style="font-weight:700;">Klik setiap Pos di bawah ini! Pos yang sudah dikunjungi berubah menjadi hijau dan diberi tanda centang ✓ (+1 Bintang ⭐)</p>
           </div>
-          <span class="pos-pill" id="mapProgressText">Pos Terbuka: 1 / 5</span>
+          <span class="pos-pill" id="mapProgressText">Pos Terbuka: 1 / 7</span>
         </div>
         <div class="map-nodes-grid" id="mapNodesGrid"></div>
 
         <div class="quick-jump-grid">
-          <button type="button" class="big-action-btn btn-green" onclick="navigateToSection('mapel')">🔬 Ke Pos 2: Info Mapel & Pancaindra</button>
-          <button type="button" class="big-action-btn btn-yellow" onclick="navigateToSection('modul')">📘 Ke Pos 3: Modul Ajar</button>
-          <button type="button" class="big-action-btn btn-orange" onclick="navigateToSection('galeri')">🎬 Ke Pos 4: Galeri Media</button>
-          <button type="button" class="big-action-btn btn-pink" onclick="navigateToSection('asesmen')">🏆 Ke Pos 5: Asesmen & Game</button>
+          <button type="button" class="big-action-btn btn-green" onclick="navigateToSection('mapel')">🔬 Pos 2: Info Mapel</button>
+          <button type="button" class="big-action-btn btn-yellow" onclick="navigateToSection('modul')">📘 Pos 3: Modul Ajar</button>
+          <button type="button" class="big-action-btn btn-orange" onclick="navigateToSection('presentasi')">📊 Pos 4: PPT & LKPD</button>
+          <button type="button" class="big-action-btn btn-pink" onclick="navigateToSection('video')">🎬 Pos 5: Video & Poster</button>
+          <button type="button" class="big-action-btn btn-blue" onclick="navigateToSection('classroom')">🏫 Pos 6: Kelas & Baca</button>
+          <button type="button" class="big-action-btn btn-yellow" onclick="navigateToSection('asesmen')">🏆 Pos 7: Asesmen Game</button>
         </div>
       </div>
     </section>
@@ -314,14 +323,14 @@
       </div>
     </section>
 
-    <!-- 4. GALERI MEDIA PEMBELAJARAN -->
-    <section id="galeri" class="page-section" data-section="galeri">
+    <!-- 4. PRESENTASI & LKPD INTERAKTIF -->
+    <section id="presentasi" class="page-section" data-section="presentasi">
       <div class="section-header-strip strip-orange">
         <div class="section-title-group">
           <span class="pos-pill">POS 4</span>
-          <h2>Galeri Media Pembelajaran Interaktif</h2>
+          <h2>Presentasi Interaktif & LKPD Digital</h2>
         </div>
-        <button type="button" class="tts-btn" onclick="speakText('Selamat datang di Galeri Media Pembelajaran! Di sini kamu bisa membuka P P T Interaktif, L K P D Digital Canva, Poster Visual, menonton Video Pembelajaran, masuk ke Google Classroom, dan membaca buku di Pojok Baca.', this)">🔊 Baca Nyaring</button>
+        <button type="button" class="tts-btn" onclick="speakText('Selamat datang di Pos 4! Buka slide PPT Interaktif Pancaindra dan kerjakan LKPD Digital Canva yang seru!', this)">🔊 Baca Nyaring</button>
       </div>
 
       <div class="media-gallery-grid">
@@ -344,25 +353,6 @@
           </a>
         </article>
 
-        <!-- 4d. Video Pembelajaran YouTube -->
-        <article class="media-card">
-          <div class="media-card-top">
-            <div class="media-icon-box" style="background:var(--pink);">🎬</div>
-            <div>
-              <span class="teacher-badge-tag" style="background:var(--pink); color:#500724;">4D • VIDEO EDUKASI</span>
-              <h3 style="font-size:1.25rem; font-weight:900;">Video Pembelajaran Pancaindra</h3>
-              <p style="font-size:0.9rem; font-weight:700; color:var(--text-muted);">Tonton video seru tentang bagaimana kelima indra kita bekerja!</p>
-            </div>
-          </div>
-          <div class="iframe-16-9-wrap">
-            <iframe src="https://www.youtube.com/embed/SFJQqaKpI-s" title="Video Pembelajaran Pancaindra Anak SD" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
-          <div class="embed-fallback-notice"><span>💡 Video tidak bisa diputar di sini? Tonton langsung di YouTube melalui tombol berikut:</span></div>
-          <a href="https://www.youtube.com/watch?v=SFJQqaKpI-s" target="_blank" rel="noopener" class="big-action-btn btn-pink" onclick="playClickSound()">
-            ▶️ Buka Video di Tab Baru ↗
-          </a>
-        </article>
-
         <!-- 4b. LKPD Digital (Canva) -->
         <article class="media-card">
           <div class="media-card-top">
@@ -381,13 +371,45 @@
             🎨 Buka LKPD Digital di Tab Baru ↗
           </a>
         </article>
+      </div>
+    </section>
 
-        <!-- 4c. Poster / Media Visual (NotebookLM) -->
+    <!-- 5. VIDEO EDUKASI & POSTER VISUAL -->
+    <section id="video" class="page-section" data-section="video">
+      <div class="section-header-strip strip-pink">
+        <div class="section-title-group">
+          <span class="pos-pill">POS 5</span>
+          <h2>Video Pembelajaran & Poster Visual</h2>
+        </div>
+        <button type="button" class="tts-btn" onclick="speakText('Selamat datang di Pos 5! Tonton video animasi seru tentang pancaindra dan amati poster panduan visual!', this)">🔊 Baca Nyaring</button>
+      </div>
+
+      <div class="media-gallery-grid">
+        <!-- 5a. Video Pembelajaran YouTube -->
+        <article class="media-card">
+          <div class="media-card-top">
+            <div class="media-icon-box" style="background:var(--pink);">🎬</div>
+            <div>
+              <span class="teacher-badge-tag" style="background:var(--pink); color:#500724;">5A • VIDEO EDUKASI</span>
+              <h3 style="font-size:1.25rem; font-weight:900;">Video Pembelajaran Pancaindra</h3>
+              <p style="font-size:0.9rem; font-weight:700; color:var(--text-muted);">Tonton video seru tentang bagaimana kelima indra kita bekerja!</p>
+            </div>
+          </div>
+          <div class="iframe-16-9-wrap">
+            <iframe src="https://www.youtube.com/embed/SFJQqaKpI-s" title="Video Pembelajaran Pancaindra Anak SD" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+          <div class="embed-fallback-notice"><span>💡 Video tidak bisa diputar di sini? Tonton langsung di YouTube melalui tombol berikut:</span></div>
+          <a href="https://www.youtube.com/watch?v=SFJQqaKpI-s" target="_blank" rel="noopener" class="big-action-btn btn-pink" onclick="playClickSound()">
+            ▶️ Buka Video di Tab Baru ↗
+          </a>
+        </article>
+
+        <!-- 5b. Poster / Media Visual (NotebookLM) -->
         <article class="media-card">
           <div class="media-card-top">
             <div class="media-icon-box" style="background:var(--blue);">🖼️</div>
             <div>
-              <span class="teacher-badge-tag" style="background:var(--blue); color:#FFFFFF;">4C • POSTER VISUAL</span>
+              <span class="teacher-badge-tag" style="background:var(--blue); color:#FFFFFF;">5B • POSTER VISUAL</span>
               <h3 style="font-size:1.25rem; font-weight:900;">Poster & Panduan Visual (NotebookLM)</h3>
               <p style="font-size:0.9rem; font-weight:700; color:var(--text-muted);">Infografis visual "Pancaindra: Cara Kita Memahami Dunia".</p>
             </div>
@@ -401,14 +423,27 @@
             🖼️ Buka Poster Visual di Tab Baru ↗
           </a>
         </article>
+      </div>
+    </section>
 
-        <!-- 4e. Google Classroom -->
+    <!-- 6. GOOGLE CLASSROOM & POJOK BACA -->
+    <section id="classroom" class="page-section" data-section="classroom">
+      <div class="section-header-strip strip-blue">
+        <div class="section-title-group">
+          <span class="pos-pill">POS 6</span>
+          <h2>Google Classroom & Pojok Baca Sains</h2>
+        </div>
+        <button type="button" class="tts-btn" onclick="speakText('Selamat datang di Pos 6! Yuk masuk ke Google Classroom Kelas 2 dan baca buku cerita sains di Pojok Baca!', this)">🔊 Baca Nyaring</button>
+      </div>
+
+      <div class="media-gallery-grid">
+        <!-- 6a. Google Classroom -->
         <article class="media-card media-card-full" style="background-color:var(--green-soft);">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
             <div class="media-card-top">
               <div class="media-icon-box" style="background:var(--green);">🏫</div>
               <div>
-                <span class="teacher-badge-tag" style="background:var(--yellow); color:#1E293B;">4E • RUANG KELAS ONLINE</span>
+                <span class="teacher-badge-tag" style="background:var(--yellow); color:#1E293B;">6A • RUANG KELAS ONLINE</span>
                 <h3 style="font-size:1.4rem; font-weight:900;">Google Classroom Kelas 2 SD - Bu Aulia Nur Khasanah</h3>
                 <p style="font-weight:700;">Tempat berkumpul, membaca materi, berdiskusi, dan mengumpulkan tugas IPA kita! (Kode Kelas: <strong>vjbnqx3x</strong>)</p>
               </div>
@@ -428,10 +463,10 @@
           </div>
         </article>
 
-        <!-- 4f. Pojok Baca & Sumber Belajar Tambahan (di-render dari data.js) -->
+        <!-- 6b. Pojok Baca & Sumber Belajar Tambahan (di-render dari data.js) -->
         <article class="media-card media-card-full" style="background-color:var(--yellow-soft);">
           <div>
-            <span class="teacher-badge-tag" style="background:var(--orange); color:#431407;">4F • LITERASI SAINS ANAK</span>
+            <span class="teacher-badge-tag" style="background:var(--orange); color:#431407;">6B • LITERASI SAINS ANAK</span>
             <h3 style="font-size:1.35rem; font-weight:900;">📚 Pojok Baca & Sumber Belajar Tambahan</h3>
             <p style="font-weight:700;">3 bacaan edukatif aman untuk anak SD (dapat diganti di <code>data.js</code>; jika tautan kosong otomatis tampil <em>"Segera hadir"</em>).</p>
           </div>
@@ -440,13 +475,15 @@
       </div>
     </section>
 
-    <!-- 5. ASESMEN DIGITAL (GAMIFIED) -->
+    <!-- 7. ASESMEN DIGITAL (GAMIFIED) -->
     <section id="asesmen" class="page-section" data-section="asesmen">
-      <div class="section-header-strip strip-pink">
+      <div class="section-header-strip strip-yellow">
         <div class="section-title-group">
-          <span class="pos-pill">POS 5</span>
+          <span class="pos-pill">POS 7</span>
           <h2>Asesmen Digital & Tantangan Game</h2>
         </div>
+        <button type="button" class="tts-btn" onclick="speakText('Saatnya tantangan seru di Pos 7! Yuk buka kembali PPT Interaktif untuk persiapan, lalu klik tombol Mulai Kuis Wayground untuk mengumpulkan lencana Juara Kuis!', this)">🔊 Baca Nyaring</button>
+      </div>
         <button type="button" class="tts-btn" onclick="speakText('Saatnya tantangan seru di Pos 5! Yuk buka kembali P P T Interaktif untuk persiapan, lalu klik tombol Mulai Kuis Wayground untuk mengumpulkan lencana Juara Kuis!', this)">🔊 Baca Nyaring</button>
       </div>
 
@@ -471,7 +508,7 @@
             <p style="font-weight:700; margin-top:8px;">Terus jelajahi semua pos dan klik tombol "Mulai Kuis!" untuk membuka seluruh lencana kehormatan Kelas 2!</p>
           </div>
           <div style="background:var(--bg-card); border:var(--border-thick); border-radius:var(--radius-md); padding:14px; display:flex; align-items:center; justify-content:space-around; flex-wrap:wrap; gap:10px;">
-            <div style="text-align:center;"><span style="font-size:0.82rem; font-weight:800; color:var(--text-muted);">TOTAL BINTANG</span><div style="font-size:1.5rem; font-weight:900;" id="gameCardStarDisplay">⭐ 1 / 5</div></div>
+            <div style="text-align:center;"><span style="font-size:0.82rem; font-weight:800; color:var(--text-muted);">TOTAL BINTANG</span><div style="font-size:1.5rem; font-weight:900;" id="gameCardStarDisplay">⭐ 1 / 7</div></div>
             <div style="text-align:center;"><span style="font-size:0.82rem; font-weight:800; color:var(--text-muted);">LENCANA TERBUKA</span><div style="font-size:1.5rem; font-weight:900;" id="gameCardBadgeDisplay">🏅 0 / 2</div></div>
           </div>
         </div>
@@ -514,7 +551,7 @@
               <div>
                 <span class="pos-status-tag" id="badgeExplorerStatus">🔒 Belum Terbuka</span>
                 <h4 style="font-size:1.18rem; font-weight:900; margin-top:4px;">Penjelajah Hebat</h4>
-                <p style="font-size:0.88rem; font-weight:700;">Syarat: Buka semua 5 bagian menu (5/5 Bintang).</p>
+                <p style="font-size:0.88rem; font-weight:700;">Syarat: Buka semua 7 bagian menu (7/7 Bintang).</p>
               </div>
             </div>
             <div class="badge-item-card" id="badgeQuizCard">
@@ -567,7 +604,7 @@
   </footer>
 
   <!-- File Data & JavaScript Terpisah (dengan versioning agar langsung memuat versi terbaru) -->
-  <script src="data.js?v=2.2"></script>
-  <script src="script.js?v=2.2"></script>
+  <script src="data.js?v=3.1"></script>
+  <script src="script.js?v=3.1"></script>
 </body>
 </html>

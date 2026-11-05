@@ -35,12 +35,44 @@ html[data-theme="dark"] {
   --orange-soft: #431407; --pink-soft: #500724; --red-soft: #450A0A;
 }
 
-/* Pilihan Tema Warna Aksen */
-html[data-accent="blue"]   { --accent: #3B82F6; --accent-soft: var(--blue-soft); }
-html[data-accent="green"]  { --accent: #22C55E; --accent-soft: var(--green-soft); }
-html[data-accent="orange"] { --accent: #FB923C; --accent-soft: var(--orange-soft); }
-html[data-accent="pink"]   { --accent: #F472B6; --accent-soft: var(--pink-soft); }
-html[data-accent="yellow"] { --accent: #FACC15; --accent-soft: var(--yellow-soft); }
+/* Pilihan Tema Warna Aksen (Flat Solid & Kontras Tinggi) */
+html[data-accent="blue"] {
+  --accent: #3B82F6;
+  --accent-dark: #1D4ED8;
+  --accent-soft: #DBEAFE;
+  --accent-contrast: #FFFFFF;
+}
+html[data-accent="green"] {
+  --accent: #22C55E;
+  --accent-dark: #15803D;
+  --accent-soft: #DCFCE7;
+  --accent-contrast: #052E16;
+}
+html[data-accent="orange"] {
+  --accent: #FB923C;
+  --accent-dark: #C2410C;
+  --accent-soft: #FFEDD5;
+  --accent-contrast: #431407;
+}
+html[data-accent="pink"] {
+  --accent: #F472B6;
+  --accent-dark: #BE185D;
+  --accent-soft: #FCE7F3;
+  --accent-contrast: #500724;
+}
+html[data-accent="yellow"] {
+  --accent: #FACC15;
+  --accent-dark: #CA8A04;
+  --accent-soft: #FEF9C3;
+  --accent-contrast: #1E293B;
+}
+
+/* Penyesuaian Kontras Tema dalam Mode Gelap */
+html[data-theme="dark"][data-accent="blue"]   { --accent-soft: #1E3A8A; --accent-contrast: #FFFFFF; }
+html[data-theme="dark"][data-accent="green"]  { --accent-soft: #14532D; --accent-contrast: #FFFFFF; }
+html[data-theme="dark"][data-accent="orange"] { --accent-soft: #431407; --accent-contrast: #FFFFFF; }
+html[data-theme="dark"][data-accent="pink"]   { --accent-soft: #500724; --accent-contrast: #FFFFFF; }
+html[data-theme="dark"][data-accent="yellow"] { --accent-soft: #422006; --accent-contrast: #FFFFFF; }
 
 * {
   box-sizing: border-box;
@@ -74,8 +106,8 @@ body {
   border-bottom: 2px solid var(--border-color);
 }
 .top-progress-bar {
-  height: 100%; width: 20%; background-color: var(--green);
-  transition: width 0.35s ease;
+  height: 100%; width: 20%; background-color: var(--accent);
+  transition: width 0.35s ease, background-color 0.25s ease;
 }
 
 /* Navigasi Atas Sticky (Selalu tampil di Laptop; hanya auto-hide di HP) */
@@ -83,8 +115,9 @@ body {
   position: sticky; top: 10px; z-index: 1500;
   background-color: var(--bg-card);
   border-bottom: var(--border-thick);
+  border-top: 5px solid var(--accent);
   padding: 12px 16px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-top-color 0.25s ease;
   will-change: transform;
 }
 .header-container {
@@ -100,9 +133,10 @@ body {
   text-decoration: none; color: var(--text-main);
 }
 .brand-icon {
-  width: 48px; height: 48px; background-color: var(--yellow);
+  width: 48px; height: 48px; background-color: var(--accent);
   border: var(--border-thick); border-radius: var(--radius-sm);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  transition: background-color 0.25s ease;
 }
 .brand-text h1 { font-size: 1.15rem; font-weight: 900; line-height: 1.2; }
 .brand-text p  { font-size: 0.82rem; font-weight: 700; color: var(--text-muted); }
@@ -117,15 +151,21 @@ body {
 }
 .color-picker-group {
   display: flex; align-items: center; gap: 6px;
-  background-color: var(--bg-muted); border: var(--border-medium);
-  border-radius: 999px; padding: 4px 10px;
+  background-color: var(--bg-muted); border: var(--border-thick);
+  border-radius: 999px; padding: 4px 12px;
+}
+.color-picker-label {
+  font-size: 0.8rem; font-weight: 900; color: var(--text-main); margin-right: 2px;
 }
 .color-dot {
   width: 26px; height: 26px; border-radius: 50%;
-  border: 2px solid #1E293B; cursor: pointer; transition: transform 0.15s ease;
+  border: 2px solid #1E293B; cursor: pointer; transition: transform 0.15s ease, outline 0.15s ease;
 }
-.color-dot:hover, .color-dot.active {
-  transform: scale(1.18); outline: 3px solid var(--text-main);
+.color-dot:hover {
+  transform: scale(1.15);
+}
+.color-dot.active {
+  transform: scale(1.22); outline: 3px solid var(--text-main);
 }
 .icon-btn {
   min-height: 44px; padding: 6px 14px;
@@ -137,22 +177,34 @@ body {
 }
 .icon-btn:hover { transform: translateY(-2px); background-color: var(--accent-soft); }
 
-/* Menu Navigasi Utama */
-.main-nav { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+/* Menu Navigasi Utama (7 Pos Belajar) */
+.main-nav { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
 .nav-btn {
-  min-height: 54px; padding: 8px 10px;
+  min-height: 52px; padding: 6px 8px;
   border: var(--border-thick); border-radius: var(--radius-md);
   background-color: var(--bg-muted); color: var(--text-main);
-  font-family: inherit; font-size: 0.92rem; font-weight: 900;
+  font-family: inherit; font-size: 0.88rem; font-weight: 900;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
-  gap: 8px; text-align: center; transition: transform 0.15s ease, background-color 0.15s ease;
+  gap: 6px; text-align: center;
+  border-bottom: 5px solid var(--border-color);
+  transition: transform 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
 }
-.nav-btn:hover { transform: translateY(-3px); }
-.nav-btn[data-nav="beranda"].active { background-color: var(--blue);   color: #FFFFFF; }
-.nav-btn[data-nav="mapel"].active   { background-color: var(--green);  color: #052E16; }
-.nav-btn[data-nav="modul"].active   { background-color: var(--yellow); color: #1E293B; }
-.nav-btn[data-nav="galeri"].active  { background-color: var(--orange); color: #431407; }
-.nav-btn[data-nav="asesmen"].active { background-color: var(--pink);   color: #500724; }
+.nav-btn:hover { transform: translateY(-2px); filter: brightness(0.96); }
+.nav-btn[data-nav="beranda"]   { border-bottom-color: var(--accent); }
+.nav-btn[data-nav="mapel"]     { border-bottom-color: var(--green); }
+.nav-btn[data-nav="modul"]     { border-bottom-color: var(--yellow-dark); }
+.nav-btn[data-nav="presentasi"]{ border-bottom-color: var(--orange-dark); }
+.nav-btn[data-nav="video"]     { border-bottom-color: var(--pink-dark); }
+.nav-btn[data-nav="classroom"] { border-bottom-color: var(--blue-dark); }
+.nav-btn[data-nav="asesmen"]   { border-bottom-color: var(--yellow-dark); }
+
+.nav-btn[data-nav="beranda"].active    { background-color: var(--accent); color: var(--accent-contrast); border-bottom-color: var(--border-color); }
+.nav-btn[data-nav="mapel"].active      { background-color: var(--green);  color: #052E16; border-bottom-color: var(--border-color); }
+.nav-btn[data-nav="modul"].active      { background-color: var(--yellow); color: #1E293B; border-bottom-color: var(--border-color); }
+.nav-btn[data-nav="presentasi"].active { background-color: var(--orange); color: #431407; border-bottom-color: var(--border-color); }
+.nav-btn[data-nav="video"].active      { background-color: var(--pink);   color: #500724; border-bottom-color: var(--border-color); }
+.nav-btn[data-nav="classroom"].active  { background-color: var(--blue);   color: #FFFFFF; border-bottom-color: var(--border-color); }
+.nav-btn[data-nav="asesmen"].active    { background-color: var(--yellow); color: #1E293B; border-bottom-color: var(--border-color); }
 
 .nav-check {
   display: inline-flex; align-items: center; justify-content: center;
@@ -177,7 +229,7 @@ body {
   flex-wrap: wrap; gap: 12px; padding: 16px 20px;
   border: var(--border-thick); border-radius: var(--radius-md); margin-bottom: 24px;
 }
-.strip-blue   { background-color: var(--blue);   color: #FFFFFF; }
+.strip-blue   { background-color: var(--accent);   color: var(--accent-contrast); transition: background-color 0.25s ease, color 0.25s ease; }
 .strip-green  { background-color: var(--green);  color: #052E16; }
 .strip-yellow { background-color: var(--yellow); color: #1E293B; }
 .strip-orange { background-color: var(--orange); color: #431407; }
@@ -222,9 +274,10 @@ body {
 /* 1. Beranda & Peta Petualangan */
 .hero-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 24px; }
 .greeting-card {
-  background-color: var(--blue-soft); border: var(--border-thick);
+  background-color: var(--accent-soft); border: var(--border-thick);
   border-radius: var(--radius-lg); padding: 24px;
   display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+  transition: background-color 0.25s ease;
 }
 .teacher-profile { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .teacher-avatar {
@@ -261,14 +314,15 @@ body {
 .identity-val   { font-size: 1rem; font-weight: 900; }
 
 .board-game-map {
-  margin-top: 28px; background-color: var(--green-soft);
+  margin-top: 28px; background-color: var(--accent-soft);
   border: var(--border-thick); border-radius: var(--radius-lg); padding: 24px;
+  transition: background-color 0.25s ease;
 }
 .map-header {
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 12px; margin-bottom: 20px;
 }
-.map-nodes-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.map-nodes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
 .map-pos-card {
   background-color: var(--bg-card); border: var(--border-thick);
   border-radius: var(--radius-md); padding: 18px 14px;
@@ -293,7 +347,7 @@ body {
 .map-pos-card.visited .pos-status-tag { background-color: #FFFFFF; color: #052E16; }
 .quick-jump-grid {
   margin-top: 24px; display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;
 }
 
 /* 2. Info Mapel, Pancaindra, Kartu Flip, & Mini Kuis */
@@ -520,10 +574,10 @@ body {
   font-family: inherit; font-size: 0.78rem; font-weight: 900; cursor: pointer;
 }
 .mascot-avatar-btn {
-  width: 74px; height: 74px; border-radius: 50%; background-color: var(--orange);
+  width: 74px; height: 74px; border-radius: 50%; background-color: var(--accent);
   border: var(--border-thick); cursor: pointer;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  transition: transform 0.15s ease;
+  transition: transform 0.15s ease, background-color 0.25s ease;
 }
 .mascot-avatar-btn:hover { transform: scale(1.08); }
 
@@ -555,9 +609,10 @@ body {
 
 .site-footer { max-width: 1200px; margin: 40px auto 0; padding: 0 16px; }
 .footer-box {
-  background-color: var(--blue); color: #FFFFFF;
+  background-color: var(--accent); color: var(--accent-contrast);
   border: var(--border-thick); border-radius: var(--radius-lg);
   padding: 28px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Auto-hide Navbar & Scroll Margin Khusus Layar HP (<= 768px) */
@@ -570,13 +625,18 @@ body {
   }
 }
 
-/* Responsif untuk Tablet & HP */
+/* Responsif Navigasi & Kartu untuk Tablet & HP */
+@media (max-width: 1100px) {
+  .main-nav { grid-template-columns: repeat(4, 1fr); }
+}
 @media (max-width: 960px) {
   .hero-grid, .tips-checklist-grid { grid-template-columns: 1fr; }
-  .map-nodes-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+  .map-nodes-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+}
+@media (max-width: 768px) {
   .main-nav { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 640px) {
+@media (max-width: 580px) {
   html { font-size: 16px; }
   .main-nav { grid-template-columns: repeat(2, 1fr); }
   .main-nav .nav-btn:last-child { grid-column: 1 / -1; }
